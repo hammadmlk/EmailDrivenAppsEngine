@@ -16,6 +16,7 @@ var emailMsgSchema = mongoose.Schema(
       date: { type: Date, index: true },
       labels: [String],
       //flags: [String],
+      spam: { type: Boolean, index: true },
       msgid: { type: String, index: true},
       thrid: {type:String, index: true}
       } 

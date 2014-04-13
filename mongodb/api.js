@@ -26,8 +26,8 @@ exports.addUpdateUser = function(info, tokens) {
         { safe: true, upsert: true  }, //options
         function (err, numberAffected, raw) { //callback
           if (err) return console.log('Error:api.js:addUser:update');
-          console.log('The number of updated documents was %d', numberAffected);
-          console.log('The raw response from Mongo was ', raw);
+          //console.log('The number of updated documents was %d', numberAffected);
+          //console.log('The raw response from Mongo was ', raw);
         }
     );       
 }
@@ -46,7 +46,7 @@ exports.getAllUsers = function(callback){
 }
 
 // Adds email msg if it does not exist. Else update it. 
-exports.addUpdateEmailMsg = function(attrs, info, user) {
+exports.addUpdateEmailMsg = function(attrs, info, user, boxname) {
     
     /* attrs
       { date: Thu Apr 03 2014 15:08:06 GMT-0400 (Eastern Daylight Time),
@@ -58,8 +58,11 @@ exports.addUpdateEmailMsg = function(attrs, info, user) {
         'x-gm-thrid': '1464391000410759949' }
     */
     
-    console.log(attrs['x-gm-labels'], user)
-    //console.log(user)
+    var isSpam = false;
+    if(boxname ==="[Gmail]/Spam" || boxname ==="Spam" ||
+       boxname ==="\\Junk"){
+        isSpam = true
+    }
     
     var emailMsg = {
         //id: Number,
@@ -73,6 +76,7 @@ exports.addUpdateEmailMsg = function(attrs, info, user) {
         date: info.date || '',
         labels: attrs['x-gm-labels'] || [],
         //flags: [String],
+        spam: isSpam,
         msgid: attrs['x-gm-msgid'],
         thrid: attrs['x-gm-thrid']
     };
@@ -102,4 +106,14 @@ exports.getAllEmailMsg = function(callback){
         callback(null, emailMsgs)
       }
     });
+}
+
+exports.removeAllEmailMsg = function (){
+    try{
+        EmailMsg.collection.remove(function(err){
+            if(err) throw err;
+        });
+    }catch(err){
+        console.log(err);
+    }
 }

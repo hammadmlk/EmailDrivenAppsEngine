@@ -5,8 +5,8 @@ var mongoose = require('mongoose');
 var proto = require('./prototypes.js')
 
 var app = express();
+app.use(express.static(__dirname + '/public'));
 app.use(cookieParser('=(*hj1!yat*vz=w6vlu1te9e&k4cp_3(w1$*!tf5ei$58&(sk5'));
-
 
 // connect to Mongo when the app initializes
 mongoose.connect('mongodb://localhost/testDB');
@@ -20,6 +20,7 @@ app.get('/', routes.home);
 app.get('/login', routes.login);
 app.get('/oauth2callback', routes.oauth2callback);
 app.get('/getEmails', routes.getEmails);
+app.get('/removeEmails', routes.removeEmails)
 
 app.listen(5001);
 

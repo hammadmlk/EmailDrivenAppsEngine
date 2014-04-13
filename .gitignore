@@ -6,7 +6,7 @@
 test-*
 
 #mongodb data 
-data
+database_data
 
 # Logs
 logs

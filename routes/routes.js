@@ -22,7 +22,7 @@ var REDIRECT_URI = 'http://localhost:5001/oauth2callback'; //oauth redirect uri
     @HomePage Route
 */
 exports.home = function(req, res){
-  res.send(200,'Home');
+  res.send(200,'Home Page');
   
   //print all users in db
   mongoDbApi.getAllUsers(function(err, users){
@@ -33,11 +33,17 @@ exports.home = function(req, res){
   
   //print all emails in db
   mongoDbApi.getAllEmailMsg(function(err, emailMsgs){
-    for (var e in emailMsgs) {
-        console.log('> date: ', emailMsgs[e].date );
-        console.log('> subj: ', emailMsgs[e].subject );
-        console.log('');
-    }
+    console.log(emailMsgs.length);
+    emailMsgs.forEach(function(e){
+        if (e.subject=="[OAE] Videos" || 1==1){    
+            console.log('> date: ', e.date );
+            console.log('> subj: ', e.subject );
+            console.log('> to: ', e.to );
+            console.log('> cc: ', e.cc );
+            console.log('> from: ', e.from );
+            console.log('');
+        }
+    });
   })
 }
 
@@ -143,4 +149,13 @@ exports.getEmails = function(req, res){
   imap.getEmails(xoauth2_token, email);
   
   res.send('Reading emails in background');
+}
+
+/*
+    Remove all emails
+*/
+exports.removeEmails = function(req, res){
+    mongoDbApi.removeAllEmailMsg();
+    console.log('removeEmails');
+    res.send('remove func called');
 }
