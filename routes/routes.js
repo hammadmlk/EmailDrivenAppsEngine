@@ -15,6 +15,7 @@ var async = require('async');
 var oauth2 = require('../oauth2/oauth2.js');
 var imap = require('../imap/imap.js');
 var mongoDbApi = require('../mongoDB/api.js');
+var stats = require('./stats.js');
 
 var REDIRECT_URI = 'http://localhost:5001/oauth2callback'; //oauth redirect uri
 
@@ -45,6 +46,14 @@ exports.home = function(req, res){
         }
     });
   })
+}
+
+
+/*
+    @Stats Route
+*/
+exports.stats = function(req, res){
+  stats(req, res);
 }
 
 /*

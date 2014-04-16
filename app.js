@@ -16,7 +16,8 @@ db.once('open', function callback () {
     console.log('\n---DB Connected---');
 });
 
-app.get('/', routes.home);
+app.get('/home', routes.home);
+app.get('/stats.json', routes.stats);
 app.get('/login', routes.login);
 app.get('/oauth2callback', routes.oauth2callback);
 app.get('/getEmails', routes.getEmails);
