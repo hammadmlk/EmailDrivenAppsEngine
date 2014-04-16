@@ -65,7 +65,7 @@ exports.getAuthTokens = function (auth_code, redirect_uri, callback){
         }
         else{
             console.log('Error:oauth.js:getAuthTokens:request.post');
-            callback('Error:oauth.js:getAuthTokens:request.post'+response.statusCode);
+            callback('Error:oauth.js:getAuthTokens:request.post');
         }
     });
 };
