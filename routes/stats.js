@@ -42,13 +42,17 @@ var mongoDbApi = require('../mongoDB/api.js');
     res.send(200,'<pre>'+JSON.stringify(results,null, "  ")+'</pre>');
   })*/
   
-  // print avgResponseTimefor user
+  /*// print avgResponseTimefor user
   mongoDbApi.getResponseTimes('hhm38@cornell.edu', function(err, results){
     if (err) res.send(500,'<pre>'+'error:stats.js:04'+'</pre>');
     res.send(200,'<pre>'+JSON.stringify(results,null, "  ")+'</pre>');
+  })*/
+  
+  // print incoming emails struc
+  mongoDbApi.getEmailsGroupedByHour('hhm38@cornell.edu', false, function(err, results){
+    if (err) res.send(500,'<pre>'+'error:stats.js:05:'+err+'</pre>');
+    res.send(200,'<pre>'+JSON.stringify(results,null, "  ")+'</pre>');
   })
-  
-  
   
   /*
   //var responseData = {status:'sucess'};

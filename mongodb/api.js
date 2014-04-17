@@ -268,13 +268,69 @@ exports.getResponseTimes = function(email, callback){
 }
 
 
-/*
-  EmailMsg.count({user:email}, function(err, results) {
-    console.log('Count results %j', results);
-    //callback(err, results)
-  });
-  console.log("\n\n\n\n\n\n")
-*/
+// Return emailsGroupedByHour for a user
+exports.getEmailsGroupedByHour = function(email,incoming, callback){
+  console.log("\n\n\nGet EmailsGroupedByHour:\n\n") 
+  //mongodb mapReduce doc at http://docs.mongodb.org/manual/core/map-reduce/
+  
+  var o = {};
+  o.scope = {email:email};
+  if (incoming === true)
+    o.query = {user: email, from:{ $ne: [[email]]}} //query filter
+  else
+    o.query = {user: email, from:[[email]]} //query filter
+  o.map = function () { //map func each msg
+                var hour;
+                if (! this.date instanceof Date) //not Date obj
+                  hour = -1;
+                else  
+                  hour = this.date.getUTCHours();
+                var value={
+                      numOfTo: [this.to.length],
+                      numOfCc: [this.cc.length],
+                      from: [this.from[0]]
+                      };
+                emit(hour, value )
+            }  
+  o.reduce = function (hour, values) { //reduce func 
+                var ans = {numOfTo: [], numOfCc: [], from: []}
+                values.forEach(function(entry){
+                    for(var i=0; i<entry.numOfTo.length; i++){
+                        ans.numOfTo.push(entry.numOfTo[i]);
+                        ans.numOfCc.push(entry.numOfCc[i]);
+                        ans.from.push(entry.from[i]);
+                    }
+                })
+                return ans
+            }  
+  o.finalize = function (hour, reducedValue) { 
+      //return reducedValue //for debug 
+
+      /* convert to array of objs (from obj of arrays)
+        input:
+          {"numOfTo": [], "numOfCc":[], "from":[]}
+        output : 
+          [ {"numOfTo": 1, "numOfCc": 5,"from":"hhm38@cu.edu"}, {...}, ...]
+      */
+      var hourDataArray=[];
+      for(var i=0; i<reducedValue.numOfTo.length;i++){
+          var obj = {};
+          obj.numOfTo=reducedValue.numOfTo[i];
+          obj.numOfCc=reducedValue.numOfCc[i];
+          obj.from=reducedValue.from[i];
+          hourDataArray.push(obj)
+      }
+      return hourDataArray;
+     }
+  
+  //result is an array of {_id:hour, value:hourDataArray}
+  EmailMsg.mapReduce(o, function (err, results) {
+    //callback(err, results); return results //for debug
+    
+    callback(err, results)
+  })
+  
+}
 
 
 
