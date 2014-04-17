@@ -326,7 +326,9 @@ exports.getEmailsGroupedByHour = function(email,incoming, callback){
   //result is an array of {_id:hour, value:hourDataArray}
   EmailMsg.mapReduce(o, function (err, results) {
     //callback(err, results); return results //for debug
-    
+    if(results.length==0){
+        err = "no results for email: "+email;
+    }
     callback(err, results)
   })
   
