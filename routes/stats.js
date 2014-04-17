@@ -48,10 +48,22 @@ var mongoDbApi = require('../mongoDB/api.js');
     res.send(200,'<pre>'+JSON.stringify(results,null, "  ")+'</pre>');
   })*/
   
+  email= req.query.email;
+  incoming= req.query.incoming==true ? true:false;
+  console.log(email,incoming);
+  
   // print incoming emails struc
-  mongoDbApi.getEmailsGroupedByHour('hhm38@cornell.edu', false, function(err, results){
-    if (err) res.send(500,'<pre>'+'error:stats.js:05:'+err+'</pre>');
-    res.send(200,'<pre>'+JSON.stringify(results,null, "  ")+'</pre>');
+  mongoDbApi.getEmailsGroupedByHour(email, incoming, function(err, results){
+    if (err) {
+      res.writeHead(500, {"Content-Type": "application/json"});
+      res.write(JSON.stringify('error:stats.js:05:'+err));
+      res.end();
+      return
+    }
+    res.writeHead(200, {"Content-Type": "application/json"});
+    res.write(JSON.stringify(results,null, "  "));
+    res.end();
+    
   })
   
   /*
