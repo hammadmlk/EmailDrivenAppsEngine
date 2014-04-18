@@ -9,21 +9,20 @@
     <script type='text/javascript'>
     //<![CDATA[
     var GLOBAL = {};
-    GLOBAL.emailsPerHourRecieved = []
-    GLOBAL.emailsPerHourSent = []
+    GLOBAL.incoming = []
+    GLOBAL.outgoing = []
     
     GLOBAL.loading = false;
     GLOBAL.loadingJson = 2;
     
-    
     function start(){
-
+        return
         GLOBAL.hourOfDay = 0;
-        GLOBAL.hourInGameTime = 15000; // how long it takes to go to next hour;
+        //GLOBAL.hourInGameTime = 15000; // how long it takes to go to next hour;
         GLOBAL.CANVAS_WIDTH = window.innerWidth.clamp(250, 700);
         GLOBAL.CANVAS_HEIGHT = window.innerHeight;
         GLOBAL.FPS = 30;
-        GLOBAL.enemyNumber = 0; // enemy number for this hour
+        //GLOBAL.enemyNumber = 0; // enemy number for this hour
 
 
         var player = {
@@ -137,7 +136,7 @@
         }, 1000/GLOBAL.FPS);
 
 
-        newEnemyInterval = setInterval(pushEnemy, GLOBAL.hourInGameTime/GLOBAL.emailsPerHourRecieved[GLOBAL.hourOfDay]);
+        //newEnemyInterval = setInterval(pushEnemy, GLOBAL.hourInGameTime/GLOBAL.emailsPerHourRecieved[GLOBAL.hourOfDay]);
         function pushEnemy() {
             enemies.push(Enemy()); 
             console.log("newEmemy" + GLOBAL.enemyNumber++);
@@ -157,6 +156,7 @@
         function update() {
           if(keydown.space) {
             player.shoot();
+            //window.keydown=false
           }
 
           if(keydown.left) {
@@ -279,11 +279,11 @@
     }
 
     
-    getEmails('to');
-    getEmails('from');
+    getEmails('hhm38@cornell.edu', 1);//incoming
+    getEmails('hhm38@cornell.edu', 0);
     
     //  
-    function getEmails(type){
+    function getEmails(email, incoming){
         xmlhttp=new XMLHttpRequest();
         xmlhttp.onreadystatechange=function(){
             if (xmlhttp.readyState==0){
@@ -294,13 +294,13 @@
                 GLOBAL.loading = false;
                 GLOBAL.loadingJson--;
                 
-                ans = xmlhttp.responseText;
+                var ans = xmlhttp.responseText;
                 ans = JSON.parse(ans);
                 
-                if(type=='to'){
-                    GLOBAL.emailsPerHourRecieved = ans.emailsPerHour;
-                }else if(type=='from'){
-                    GLOBAL.emailsPerHourSent = ans.emailsPerHour;
+                if(incoming){
+                    GLOBAL.incoming = ans;
+                }else {
+                    GLOBAL.outgoing = ans;
                 }
                 
                 if(GLOBAL.loadingJson==0){
@@ -309,14 +309,14 @@
             }
             else if (xmlhttp.readyState==4){
                 //fail
-                alert('Ops!! Problem contacting the server. Try again maybe?')
+                alert('Ops!! Problem contacting the server. Try again maybe? -- Refresh Page')
                 GLOBAL.loading = false;
             }
         }    
         var url = window.location.href;
         url = url.split("/");
         url = url[0]+"//"+url[2];
-        xmlhttp.open("GET",url+'/makejson?mailbox_name='+"hhm38@cornell.edu"+'&type='+type,false);
+        xmlhttp.open("GET",url+'/stats.json?email='+email+'&incoming='+incoming,false);
         xmlhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
         xmlhttp.send();
     };
