@@ -10,13 +10,15 @@ require(["globals", "utils", "player", "controller", "view"],
 		Controller.getGameData('hammadmlk@gmail.com', false, gameDataCB);
 
 		function startGame() {
-			var p = player;
+			
+      var p = player;
 			var g = GLOBAL;
 			// game loop
 			setInterval(function () {
 				Controller.update(p);
 				View.draw(p);
 			}, 1000 / g.FPS);
+      
 		}
 
 		//gamedata callback

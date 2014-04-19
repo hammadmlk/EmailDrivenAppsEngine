@@ -35,6 +35,7 @@ define(["globals", "enemy"], function (GLOBAL, Enemy) {
 
 			//todo:remove
 			if (this._shouldCreateEnemy()) {
+        console.log(GLOBAL.GAMEHOUR)
 				GLOBAL.ENEMIES.push(Enemy());
 			}
 		},
@@ -44,7 +45,7 @@ define(["globals", "enemy"], function (GLOBAL, Enemy) {
 			var totalhourloops = GLOBAL.FPS * GLOBAL.HOURLENGTH;
 			var numenemies = (inemaildata[hour]) ? inemaildata[hour].length : 0;
 			GLOBAL.HOURITR++
-			console.log(numenemies);
+			//console.log(numenemies);
 			if (GLOBAL.HOURITR > totalhourloops) {
 				//console.log(hour, 'hour')
 				//console.log(inemaildata[hour], 'hour len')
@@ -62,9 +63,10 @@ define(["globals", "enemy"], function (GLOBAL, Enemy) {
 			if (numenemies === 0) {
 				return 0
 			}
-
-			if (GLOBAL.HOURITR % (totalhourloops / numenemies) === 0) {
-				console.log(GLOBAL.HOURITR, totalhourloops, numenemies)
+      
+      //Todo: fails when numenemies > totalhourloops
+			if (GLOBAL.HOURITR % Math.round(totalhourloops / numenemies) === 0) {
+				//console.log(GLOBAL.HOURITR, totalhourloops, numenemies)
 				return 1
 			}
 
