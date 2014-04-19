@@ -17,7 +17,7 @@ var imap = require('../imap/imap.js');
 var mongoDbApi = require('../mongodb/api.js');
 var stats = require('./stats.js');
 
-var REDIRECT_URI = 'http://localhost:5001/oauth2callback'; //oauth redirect uri
+var REDIRECT_URI = 'http://moodrhythm.com:5001/oauth2callback'; //oauth redirect uri
 
 /*
     @HomePage Route
