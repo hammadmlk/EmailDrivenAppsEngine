@@ -21,6 +21,11 @@ define(function () {
 		PLAYERBULLETS : [],
     ENEMIES: [],
     KEYDOWN: keydown,
-    LOADING:2
+    LOADING:2,
+    OUTGOINGEMAILDATA:[],
+    INCOMINGEMAILDATA:[],
+    GAMEHOUR:0,
+    HOURLENGTH:1, //how long (in seconds) is one hour in game time
+    HOURITR:0 //hour iteration number
 	}
 });

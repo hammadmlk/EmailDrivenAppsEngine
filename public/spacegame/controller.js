@@ -34,9 +34,42 @@ define(["globals", "enemy"], function (GLOBAL, Enemy) {
 			this._handleCollisions(GLOBAL, player, this._collides);
 
 			//todo:remove
-			if (Math.random() < 0.1) {
+			if (this._shouldCreateEnemy()) {
 				GLOBAL.ENEMIES.push(Enemy());
 			}
+		},
+		_shouldCreateEnemy : function () {
+			var hour = GLOBAL.GAMEHOUR;
+			var inemaildata = GLOBAL.INCOMINGEMAILDATA;
+			var totalhourloops = GLOBAL.FPS * GLOBAL.HOURLENGTH;
+			var numenemies = (inemaildata[hour]) ? inemaildata[hour].length : 0;
+			GLOBAL.HOURITR++
+			console.log(numenemies);
+			if (GLOBAL.HOURITR > totalhourloops) {
+				//console.log(hour, 'hour')
+				//console.log(inemaildata[hour], 'hour len')
+				if (GLOBAL.HOURITR > totalhourloops + 2 * GLOBAL.FPS 
+                        /*&& GLOBAL.ENEMIES.length === 0*/) {
+					GLOBAL.HOURITR = 0;
+          GLOBAL.GAMEHOUR++;
+				
+				}
+				if (GLOBAL.GAMEHOUR > 24)
+					alert('end of time');
+
+				return 0
+			}
+			if (numenemies === 0) {
+				return 0
+			}
+
+			if (GLOBAL.HOURITR % (totalhourloops / numenemies) === 0) {
+				console.log(GLOBAL.HOURITR, totalhourloops, numenemies)
+				return 1
+			}
+
+			return 0;
+			//return Math.random() < 0.1
 		},
 		_collides : function (a, b) {
 			"use strict"

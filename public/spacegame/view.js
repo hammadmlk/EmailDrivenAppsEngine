@@ -13,7 +13,7 @@ define(["globals", "enemy"], function (GLOBAL, Enemy) {
 			});
 
 			GLOBAL.CANVAS.font = "30px Arial";
-			GLOBAL.CANVAS.fillText("This HOUR: " + GLOBAL.hourOfDay, 10, 50);
+			GLOBAL.CANVAS.fillText("This HOUR: " + GLOBAL.GAMEHOUR, 10, 50);
 			/*GLOBAL.CANVAS.font = "20px Arial";
 			GLOBAL.CANVAS.fillText("   Bullets Remaining: " + GLOBAL.emailsPerHourSent, 10, 75);
 			GLOBAL.CANVAS.font = "13px Arial";

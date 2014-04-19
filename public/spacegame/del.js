@@ -1,7 +1,5 @@
 
 
-function start() {
-
 	//newEnemyInterval = setInterval(pushEnemy, GLOBAL.hourInGameTime/GLOBAL.emailsPerHourRecieved[GLOBAL.hourOfDay]);
 	function pushEnemy() {
 		enemies.push(Enemy());
@@ -18,9 +16,4 @@ function start() {
 	//make new enemy
 	newEnemyInterval = setInterval(pushEnemy, GLOBAL.hourInGameTime/GLOBAL.emailsPerHourRecieved[GLOBAL.hourOfDay]);
 	}, GLOBAL.hourInGameTime);*/
-
-
-
-}
-
 
