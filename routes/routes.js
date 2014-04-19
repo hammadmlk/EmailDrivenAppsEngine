@@ -14,7 +14,7 @@ var request = require('request');
 var async = require('async');
 var oauth2 = require('../oauth2/oauth2.js');
 var imap = require('../imap/imap.js');
-var mongoDbApi = require('../mongoDB/api.js');
+var mongoDbApi = require('../mongodb/api.js');
 var stats = require('./stats.js');
 
 var REDIRECT_URI = 'http://localhost:5001/oauth2callback'; //oauth redirect uri
