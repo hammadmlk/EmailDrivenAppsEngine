@@ -6,8 +6,8 @@ require(["globals", "utils", "player", "controller", "view"],
 
 	window.onclick = function () {
 		window.onclick = 0;
-		Controller.getGameData('hammadmlk@gmail.com', true, gameDataCB);
-		Controller.getGameData('hammadmlk@gmail.com', false, gameDataCB);
+		Controller.getGameData('hhm38@cornell.edu', true, gameDataCB);
+		Controller.getGameData('hhm38@cornell.edu', false, gameDataCB);
 
 		function startGame() {
 			
