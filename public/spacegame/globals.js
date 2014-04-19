@@ -25,7 +25,8 @@ define(function () {
     OUTGOINGEMAILDATA:[],
     INCOMINGEMAILDATA:[],
     GAMEHOUR:0,
-    HOURLENGTH:30, //how long (in seconds) is one hour in game time
-    HOURITR:0 //hour iteration number
+    HOURLENGTH:15, //how long (in seconds) is one hour in game time
+    HOURITR:0, //hour iteration number
+    HOURENEMYNUMBER:0
 	}
 });

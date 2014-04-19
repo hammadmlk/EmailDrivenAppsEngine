@@ -35,7 +35,8 @@ define(["globals", "enemy"], function (GLOBAL, Enemy) {
 
 			//todo:remove
 			if (this._shouldCreateEnemy()) {
-        console.log(GLOBAL.GAMEHOUR)
+        //console.log(GLOBAL.GAMEHOUR)
+        GLOBAL.HOURENEMYNUMBER++;
 				GLOBAL.ENEMIES.push(Enemy());
 			}
 		},
@@ -52,12 +53,13 @@ define(["globals", "enemy"], function (GLOBAL, Enemy) {
 				if (GLOBAL.HOURITR > totalhourloops + 2 * GLOBAL.FPS 
                         /*&& GLOBAL.ENEMIES.length === 0*/) {
 					GLOBAL.HOURITR = 0;
+          GLOBAL.HOURENEMYNUMBER = 0;
           GLOBAL.GAMEHOUR++;
 				
 				}
-				if (GLOBAL.GAMEHOUR > 24)
-					alert('end of time');
-
+				if (GLOBAL.GAMEHOUR > 23){
+					alert('end of time. Refresh page to play again');
+        }
 				return 0
 			}
 			if (numenemies === 0) {
