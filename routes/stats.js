@@ -5,7 +5,7 @@
 */
 
 module.exports = function (req, res) {
-var mongoDbApi = require('../mongoDB/api.js');
+var mongoDbApi = require('../mongodb/api.js');
 
   /* //print user with email  
   mongoDbApi.getUser('hhm38@cornell.edu', function(err, user){
