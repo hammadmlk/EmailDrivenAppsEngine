@@ -14,13 +14,12 @@ define(["globals", "./bullet"], function (GLOBAL, Bullet) {
 			GLOBAL.CANVAS.fillRect(this.x, this.y, this.width, this.height);
 		},
 		shoot : function () {
-			if (1 == 1 || GLOBAL.emailsPerHourSent[GLOBAL.hourOfDay] > 0) { // bullet available
-				//GLOBAL.emailsPerHourSent[GLOBAL.hourOfDay]--;
-
+			if (GLOBAL.OUTGOINGEMAILDATA[GLOBAL.GAMEHOUR].length > 0) { // bullet available
+        console.log(GLOBAL.OUTGOINGEMAILDATA[GLOBAL.GAMEHOUR].pop());
+        
 				GLOBAL.SOUND.play("shoot");
-
+        
 				var bulletPosition = this.midpoint();
-
 				GLOBAL.PLAYERBULLETS.push(Bullet({
 						speed : 10,
 						x : bulletPosition.x,
