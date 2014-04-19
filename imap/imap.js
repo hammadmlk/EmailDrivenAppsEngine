@@ -7,7 +7,7 @@ var inspect = require('util').inspect;
 var fs = require('fs'), fileStream;
 var MailParser = require("mailparser").MailParser;
 var async = require('async')
-var mongoDbApi = require('../mongoDB/api.js')
+var mongoDbApi = require('../mongodb/api.js')
 
 var GLOBALS={};
 GLOBALS.daysOfEmail = 29;   // last x days of email to fetch
