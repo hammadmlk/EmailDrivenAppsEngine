@@ -4,7 +4,7 @@
     <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
     <link rel="icon" href="favicon.ico" type="image/x-icon">
       <style>
-        p,h1,a{
+        p,h1,h2,a{
             text-align: center;
             display: block;
         }
@@ -147,8 +147,19 @@
     searchPrompt('term', true, 'black', 'black');
     
 })();">BlackOut</a> 
-<p>Drag the above link to your bookmark bar</p>
+        <p>Drag the above link to your bookmark bar</p>
+       
+        <br/>
+        <h2>Cool Addons</h2> <p>Save your blackout version to server (saveDOM) and retrieve it later(RetrieveDOM)</p>
         
+        <a class="bookmark" href="javascript:(function(){var e=document.documentElement.outerHTML;var t=new WebSocket('ws://localhost:8081');t.onopen=function(){console.log('Connection opened');t.send('s'+e)};t.onclose=function(){console.log('Connection closed')};t.onerror=function(){console.error('Connection error')};t.onmessage=function(e){console.log(e.data);alert(e.data)}})()
+        ">SaveDom</a>
+        <p>Drag the above link to your bookmark bar</p>
+       
+        <a class="bookmark" href="javascript:(function(){var e=new WebSocket('ws://localhost:8081');e.onopen=function(){console.log('Connection opened');e.send('r')};e.onclose=function(){console.log('Connection closed')};e.onerror=function(){console.error('Connection error')};e.onmessage=function(e){console.log('DOM received');document.documentElement.innerHTML=e.data}})()
+        ">RetrieveDom</a>
+       <p>Drag the above link to your bookmark bar</p>
+       
     </body>
 </html>
 
