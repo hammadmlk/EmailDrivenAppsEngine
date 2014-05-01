@@ -1,4 +1,4 @@
-define(["globals", "enemy"], function (GLOBAL, Enemy) {
+define(["globals", "utils", "enemy"], function (GLOBAL, Utils, Enemy) {
 	return {
 		update : function (player) {
 			if (GLOBAL.KEYDOWN.isSpace()) {
@@ -6,11 +6,21 @@ define(["globals", "enemy"], function (GLOBAL, Enemy) {
 			}
 
 			if (GLOBAL.KEYDOWN.left) {
-				player.x -= 10;
+				//player.x -= 10;
+
+				var speed = GLOBAL.RESTIME;
+				speed = Math.min(Math.max(3, (30000 / speed)), 20);
+				//console.log(speed);
+
+				player.x -= speed;
 			}
 
 			if (GLOBAL.KEYDOWN.right) {
-				player.x += 10;
+				var speed = GLOBAL.RESTIME;
+				speed = Math.min(Math.max(3, (30000 / speed)), 20);
+				//console.log(speed);
+
+				player.x += speed;
 			}
 
 			player.x = player.x.clamp(0, GLOBAL.CANVAS_WIDTH - player.width);
@@ -34,10 +44,38 @@ define(["globals", "enemy"], function (GLOBAL, Enemy) {
 			this._handleCollisions(GLOBAL, player, this._collides);
 
 			//todo:remove
-			if (this._shouldCreateEnemy()) {
-        //console.log(GLOBAL.GAMEHOUR)
-        GLOBAL.HOURENEMYNUMBER++;
-				GLOBAL.ENEMIES.push(Enemy());
+			var nextEnemy = this._shouldCreateEnemy();
+			if (nextEnemy) {
+				GLOBAL.HOURENEMYNUMBER++;
+
+				var from = nextEnemy.from;
+				var color = 'white';
+				if (from.search(/@facebookmail./i) != -1) {
+					color = 'blue';
+				} else if (from.search(/@cornell.edu/i) != -1) {
+					color = 'red';
+				} else if (from.search(/@gmail.com/i) != -1) {
+					color = 'green';
+				} else if (from.search(/@yahoo./i) != -1) {
+					color = 'green';
+				} else if (from.search(/@hotmail./i) != -1) {
+					color = 'green';
+				} else if (from.search(/@outlook./i) != -1) {
+					color = 'green';
+				} else if (from.search(/@mit./i) != -1) {
+					color = 'pink';
+				} else {
+					color = 'white';
+				}
+
+				var size = Math.min(10, (nextEnemy.numOfTo + nextEnemy.numOfCc));
+				size = (size / 10) * 1.5 + 1;
+
+				GLOBAL.ENEMIES.push(Enemy({
+						a : '',
+						color : color,
+						size : size
+					}));
 			}
 		},
 		_shouldCreateEnemy : function () {
@@ -50,26 +88,27 @@ define(["globals", "enemy"], function (GLOBAL, Enemy) {
 			if (GLOBAL.HOURITR > totalhourloops) {
 				//console.log(hour, 'hour')
 				//console.log(inemaildata[hour], 'hour len')
-				if (GLOBAL.HOURITR > totalhourloops + 2 * GLOBAL.FPS 
-                        /*&& GLOBAL.ENEMIES.length === 0*/) {
+				if (GLOBAL.HOURITR > totalhourloops + 2 * GLOBAL.FPS
+					/*&& GLOBAL.ENEMIES.length === 0*/
+				) {
 					GLOBAL.HOURITR = 0;
-          GLOBAL.HOURENEMYNUMBER = 0;
-          GLOBAL.GAMEHOUR++;
-				
+					GLOBAL.HOURENEMYNUMBER = 0;
+					GLOBAL.GAMEHOUR++;
+
 				}
-				if (GLOBAL.GAMEHOUR > 23){
+				if (GLOBAL.GAMEHOUR > 23) {
 					alert('end of time. Refresh page to play again');
-        }
+				}
 				return 0
 			}
 			if (numenemies === 0) {
 				return 0
 			}
-      
-      //Todo: fails when numenemies > totalhourloops
+
+			//Todo: fails when numenemies > totalhourloops
 			if (GLOBAL.HOURITR % Math.round(totalhourloops / numenemies) === 0) {
-				//console.log(GLOBAL.HOURITR, totalhourloops, numenemies)
-				return 1
+				var nextEnemy = GLOBAL.INCOMINGEMAILDATA[GLOBAL.GAMEHOUR][GLOBAL.HOURENEMYNUMBER];
+				return nextEnemy
 			}
 
 			return 0;
@@ -106,26 +145,29 @@ define(["globals", "enemy"], function (GLOBAL, Enemy) {
 			use getEmailData('h@hh.com', false) //gets outgoing email data
 			 */
 
-			xmlhttp = new XMLHttpRequest();
-			xmlhttp.onreadystatechange = function () {
-				if (xmlhttp.readyState == 0) {}
-				if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
-					//success
-					var res = xmlhttp.responseText;
-					var resJson = JSON.parse(res);
-					callback(null, incoming, resJson);
-				} else if (xmlhttp.readyState == 4) {
-					//fail
-					callback('error loading GameDate');
-				}
+			if (incoming === 'resTime') {
+
+				var url = '/stats.json?id=getAvgResponseTime&email=' + email;
+
+				Utils.getJson(url, function (err, json) {
+					if (err)
+						callback(err);
+					else
+						callback(null, incoming, json);
+				});
+				return
 			}
+
+			//Make url
 			incoming = (incoming) ? 1 : 0;
-			var url = window.location.href;
-			url = url.split("/");
-			url = url[0] + "//" + url[2];
-			xmlhttp.open("GET", url + '/stats.json?email=' + email + '&incoming=' + incoming, false);
-			xmlhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-			xmlhttp.send();
+			var url = '/stats.json?id=getSpaceGameData&email=' + email + '&incoming=' + incoming;
+
+			Utils.getJson(url, function (err, json) {
+				if (err)
+					callback(err);
+				else
+					callback(null, incoming, json);
+			});
 		}
 	}
 });
