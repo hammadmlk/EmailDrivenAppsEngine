@@ -16,7 +16,7 @@ var oauth2 = require('../oauth2/oauth2.js');
 var imap = require('../imap/imap.js');
 var mongoDbApi = require('../mongodb/api.js');
 var stats = require('./stats.js');
-
+//move url to external file
 var REDIRECT_URI = 'http://moodrhythm.com:5001/oauth2callback'; //oauth redirect uri
 
 /*
