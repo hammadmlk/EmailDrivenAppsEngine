@@ -31,11 +31,18 @@
         );
       },
       
-      fill: function(canvas, x, y, width, height, repeat) {
-        repeat = repeat || "repeat";
-        var pattern = canvas.createPattern(image, repeat);
-        canvas.fillColor(pattern);
+      fill: function(canvas, x, y, width, height, repeat, color) {
+        if (typeof color === 'undefined'){
+          repeat = repeat || "repeat";
+          var pattern = canvas.createPattern(image, repeat);
+          canvas.fillColor(pattern);
+          canvas.fillRect(x, y, width, height);
+          return
+        }
+        var temp = canvas.fillStyle;
+        canvas.fillStyle = color;
         canvas.fillRect(x, y, width, height);
+        canvas.fillStyle = temp;
       },
       
       width: width,
