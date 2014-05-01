@@ -14,6 +14,10 @@
  npm install mongoose
  
  npm install cookie-parser
+
+##start mongodb
+ visit mongodb website for instructions
  
 ##run
  node app.js
+
