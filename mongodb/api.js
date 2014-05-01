@@ -300,7 +300,7 @@ exports.getResponseTimes = function (email, callback) {
 
 // Return emailsGroupedByHour for a user
 exports.getEmailsGroupedByHour = function (email, incoming, callback) {
-	console.log("\n\n\nGet EmailsGroupedByHour:\n\n")
+	//console.log("\n\n\nGet EmailsGroupedByHour:\n\n")
 	//mongodb mapReduce doc at http://docs.mongodb.org/manual/core/map-reduce/
 
 	var o = {};
