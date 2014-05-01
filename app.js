@@ -17,6 +17,7 @@ db.once('open', function callback () {
 });
 
 app.get('/home', routes.home);
+//app.get('/query', routes.query);
 app.get('/stats.json', routes.stats);
 app.get('/login', routes.login);
 app.get('/oauth2callback', routes.oauth2callback);
