@@ -27,11 +27,17 @@ exports.home = function(req, res){
   
   //print all users in db
   mongoDbApi.getAllUsers(function(err, users){
-    for (var u in users) {
-        //console.log( users[u] );
+    if (err){
+      console.log('err:')
+      return
     }
-  })
-  
+    for (var u in users) {
+        console.log( users[u]);
+        console.log('\n      --next user--')
+    }
+    console.log('\n\n----end----\n\n')
+  });
+  /*
   //print all emails in db
   mongoDbApi.getAllEmailMsg(function(err, emailMsgs){
     console.log(emailMsgs.length);
@@ -46,6 +52,7 @@ exports.home = function(req, res){
         }
     });
   })
+  */
 }
 
 
@@ -59,11 +66,24 @@ exports.stats = function(req, res){
 /*
     @Login Route
     Redirects to oauth permission url to get user concent.
-    When consent is granted, user is returned to the url given
+    When consent is granted, user is redirected to the url given
     in REDIRECT_URI.
 */
 exports.login = function(req, res){
-  var url = oauth2.genPermissionUrl(REDIRECT_URI);
+  var email= req.query.email || '';
+  var role= req.query.role || '';
+  var url;
+  if (email)
+    url = oauth2.genPermissionUrl(REDIRECT_URI, email.toLowerCase());
+  else
+    url = oauth2.genPermissionUrl(REDIRECT_URI);
+  
+    var cookieVal = {
+      email: email, 
+      role: role
+    };
+  
+  res.cookie('emailNrole', cookieVal, { signed: true, maxAge: 3600000})
   res.redirect(url);
 }
 
@@ -78,8 +98,9 @@ exports.login = function(req, res){
         4. redirects to /getEmails with cookies set (email + access_token)
 */
 exports.oauth2callback = function(req, res){
-    auth_code= req.query.code;
-  
+    var auth_code= req.query.code;
+    var emailNrole = req.signedCookies.emailNrole || '';
+    
     async.waterfall([
         // getAuthTokens
         function(callback){
@@ -108,13 +129,17 @@ exports.oauth2callback = function(req, res){
         function(userInfo, tokens, callback){
             console.log('3...');
             
+            if (userInfo.email == emailNrole.email && emailNrole.role){
+              console.log('EMAIL MATCH. ASSIGNING ROLE ---<<< ')
+              userInfo.role = emailNrole.role
+            }
+            
             console.log(userInfo);
             
             mongoDbApi.addUpdateUser(userInfo, tokens)
             
-            
             var cookieVal = {
-                email: userInfo.email, 
+                email: userInfo.email,
                 access_token:tokens.access_token
                 };
             
@@ -155,9 +180,30 @@ exports.getEmails = function(req, res){
   
   var xoauth2_token = oauth2.buildXoauth2Token(email, access_token)
   
-  imap.getEmails(xoauth2_token, email);
+  imap.getEmails(xoauth2_token, email, function () {
+  	mongoDbApi.setUserLoadingStatus(email, 1);  
+  });
   
   res.send('Reading emails in background');
+}
+
+/*
+  Gets the loading status of a user.
+  TODO: move to stats.js 
+*/
+exports.getStatus = function(req, res){
+  var emailNToken = req.signedCookies.emailNToken;
+  var email = req.query.email || emailNToken.email ;
+  
+  mongoDbApi.getUserLoadingStatus(email, function (status) {
+  	console.log('status: ', status);
+    res.writeHead(200, {
+    	"Content-Type" : "application/json"
+    });
+    res.write(JSON.stringify(status));
+    res.end();
+    
+  })
 }
 
 /*

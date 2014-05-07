@@ -1,0 +1,21 @@
+Welcome to Khat-Khail - A 90's style space invador game that runs on on actual email data.
+
+Incoming emails appear as invadors while your email responses become missiles. The agility of your ship's movement, the rate of incoming invadors and the number of available missiles represent your email characteristics. 
+
+Play with own email data or with your collegue's data. See how your inbox characteristics differ from that of other friends and co-workers with this engaging game where you find your way through intimidating invadors.
+
+
+Play>>
+
+
+    1.Play my own data                     2. Play other people's data
+         email 
+         Role                                         chose one 
+        start                                           start
+        
+1. Before we start, we need to quickly read through your emails. We will read the last 30 days of emails. The contents of the email not not be read. Only the date, sender, recievers and subject will be read.
+        >>Read my data and start game.
+        
+2. start game
+        
+ 

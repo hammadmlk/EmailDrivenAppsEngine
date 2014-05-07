@@ -1,8 +1,34 @@
 
-* {
+body {
   padding:0;
   border:0;
   margin: 0;
-  background-color: goldenrod;
+  background-color: gainsboro;
+  xcolor:darkcyan;
 }
 
+h1,h2,h3 {
+  xbackground-color: gainsboro;
+  color:darkslategrey;
+}
+
+
+p {
+  xbackground-color: gainsboro;
+  color:darkcyan;
+}
+
+#notes{
+  padding-left:3%;
+  color:darkolivegreen;
+}
+
+section {
+  padding:10%;
+  padding-left:10%;
+}
+
+section#gamePage {
+  padding:0%;
+  padding-left:0%;
+}

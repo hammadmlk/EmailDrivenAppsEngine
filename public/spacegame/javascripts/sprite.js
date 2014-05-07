@@ -36,12 +36,28 @@
           repeat = repeat || "repeat";
           var pattern = canvas.createPattern(image, repeat);
           canvas.fillColor(pattern);
-          canvas.fillRect(x, y, width, height);
+          //canvas.fillRect(x, y, width, height);
+          
+          canvas.beginPath();
+          canvas.arc(x+width/2,y+height/2,width/2,0,2*Math.PI);
+          canvas.fill();
+          canvas.strokeStyle = 'grey';
+          canvas.stroke();
+          
+          
           return
         }
         var temp = canvas.fillStyle;
         canvas.fillStyle = color;
-        canvas.fillRect(x, y, width, height);
+        //canvas.fillRect(x, y, width, height);
+        
+        canvas.beginPath();
+        canvas.arc(x+width/2,y+height/2,width/2,0,2*Math.PI);
+        canvas.fill();
+        canvas.strokeStyle = 'grey';
+        canvas.stroke();
+        
+        
         canvas.fillStyle = temp;
       },
       

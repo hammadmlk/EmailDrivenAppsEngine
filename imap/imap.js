@@ -11,8 +11,11 @@ var mongoDbApi = require('../mongodb/api.js')
 
 var GLOBALS={};
 GLOBALS.daysOfEmail = 29;   // last x days of email to fetch
-   
-exports.getEmails = function (xoauth2_token, userEmail){
+
+/*
+  Get all emails and put them in db. When complete call main_callback   
+*/
+exports.getEmails = function (xoauth2_token, userEmail, main_callback){
 
     var imap = new Imap({
       xoauth2: xoauth2_token,
@@ -27,6 +30,7 @@ exports.getEmails = function (xoauth2_token, userEmail){
 
     imap.once('end', function() {
       console.log('Connection ended:'+userEmail);
+      main_callback(userEmail)
     });
     
     imap.once('ready', function() {

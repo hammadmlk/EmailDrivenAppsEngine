@@ -4,13 +4,18 @@ require(["globals", "utils", "player", "controller", "view"],
 	function (GLOBAL, Utils, player, Controller, View) {
 	//Ran after all requires (and their dependencies have loaded)
 
-
 	///////
-
-	document.getElementById("emailbtn").onclick = function () {
-		var email = document.getElementById("email").value;
-    console.log('email', email)
-		var url = "/stats.json?id=getUser&email=" + email;
+  var startGame = function () {
+    var email = $('#email').val();
+    if (!Utils.validateEmail(email)){
+      alert('Invalid Email');
+      return;
+    }
+    var serial = $('#startGameForm').serialize();
+    console.log(serial);
+    
+    //var url = "/stats.json?id=getUser&email=" + email;
+    var url = "/stats.json?id=getUser&" + serial;
 		Utils.getJson(url, function (err, json) {
 			if (err) {
 				alert(err);
@@ -25,7 +30,12 @@ require(["globals", "utils", "player", "controller", "view"],
 				}
 			}
 		})
+    
 	};
+
+	$("#submitbtn").click(startGame); 
+  
+  
 
 	////////
 	window.onclick = function (email) {
@@ -35,6 +45,7 @@ require(["globals", "utils", "player", "controller", "view"],
 		//return
     email = email || 'hhm38@cornell.edu'
 		document.getElementById("infoPage").style.display = "none";
+    document.getElementById("gamePage").style.display = "";
 		window.onclick = 0;
 		Controller.getGameData(email, true, gameDataCB);
 		Controller.getGameData(email, false, gameDataCB);

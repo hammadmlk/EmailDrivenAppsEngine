@@ -19,8 +19,10 @@ var BASE_URL = 'https://accounts.google.com/';
 /* Generates a url that needs to be visited to get an authorization 
  * code. Redirect url is the url that will be visited after the 
  * user authorizes.
+ * login_hint(optional) can be the user's email address and will help 
+ *    automatically choose the corrct user in google concent screen 
 */
-exports.genPermissionUrl = function (redirect_uri){
+exports.genPermissionUrl = function (redirect_uri, login_hint){
     if (typeof redirect_uri != 'string'){
         console.log('Error:oauth.js:genPermissionUrl:Invalid Redirect Url')
         return
@@ -31,7 +33,8 @@ exports.genPermissionUrl = function (redirect_uri){
         scope: 'https://mail.google.com/ https://www.googleapis.com/auth/userinfo.email',
         approval_prompt: 'force',
         access_type: 'offline',
-        response_type: 'code'
+        response_type: 'code',
+        login_hint: login_hint || ''
         };
     var url = BASE_URL+'o/oauth2/auth?'+querystring.stringify(parms);    
     return url;

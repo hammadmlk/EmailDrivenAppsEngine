@@ -9,7 +9,7 @@ define(function () {
 	var canvasElement = $("<canvas width='" + canvas_width +
 			"' height='" + canvas_height + "'></canvas>");
 	var canvas = canvasElement.get(0).getContext("2d");
-	canvasElement.appendTo('body');
+	canvasElement.appendTo('#gamePage');
 
 	return {
 		CANVAS_WIDTH : canvas_width,

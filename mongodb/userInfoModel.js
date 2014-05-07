@@ -19,7 +19,10 @@ var userInfoSchema = mongoose.Schema(
       hd: String,
       verified_email: Boolean,
       refresh_token: String,
-      access_token: String
+      access_token: String,
+      role: String, //example CU-undergraduate, CU-AcademicStaff etc
+      notes: String, //any notes
+      loadingStatus: {type: Number, default: 0}
       } 
     );
     

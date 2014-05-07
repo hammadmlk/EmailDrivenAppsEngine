@@ -16,7 +16,10 @@ exports.addUpdateUser = function (info, tokens) {
 		hd : info.hd || '',
 		verified_email : info.verified_email || false,
 		refresh_token : tokens.refresh_token || '',
-		access_token : tokens.access_token || ''
+		access_token : tokens.access_token || '',
+    role: info.role || 'unknown',
+    notes: info.notes || '',
+    loadingStatus: info.loadingStatus || 0
 	};
 
 	UserInfo.update({
@@ -30,8 +33,8 @@ exports.addUpdateUser = function (info, tokens) {
 		function (err, numberAffected, raw) { //callback
 		if (err)
 			return console.log('Error:api.js:addUser:update');
-		//console.log('The number of updated documents was %d', numberAffected);
-		//console.log('The raw response from Mongo was ', raw);
+		console.log('The number of updated documents was %d', numberAffected);
+		console.log('The raw response from Mongo was ', raw);
 	});
 }
 
@@ -122,6 +125,37 @@ exports.removeAllEmailMsg = function () {
 	} catch (err) {
 		console.log(err);
 	}
+}
+
+// updates the users email loading status. 1= ready, 0=pending, -1 error
+exports.setUserLoadingStatus = function(email, status, callback){
+  //
+  var query = {email : email};
+  
+  UserInfo.update(query, {loadingStatus : status},
+  	function (err, numberAffected, raw) {
+  	  if (err){
+  		  console.log('error:api:setUserLoadingStatus',err)
+        return;
+      }
+  	  //console.log('The number of updated documents was %d', numberAffected);
+  	  //console.log('The raw response from Mongo was ', raw);
+    })
+}
+
+// gets the users email loading status. 1= ready, 0=pending, -1 error
+exports.getUserLoadingStatus = function(email, callback){
+  UserInfo
+	.find({
+		email : email
+	}).exec(function(err, user){
+        if (err)
+          callback(-1);
+        else if (typeof user[0] =='undefined' || user[0].hasOwnProperty('loadingStatus'))
+          callback(-1);
+        else
+          callback(user[0].loadingStatus)
+    });
 }
 
 // Return the user matching username
