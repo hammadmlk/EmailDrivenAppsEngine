@@ -5,9 +5,11 @@ require(["globals", "utils", "player", "controller", "view"],
 	//Ran after all requires (and their dependencies have loaded)
 
 	var email = Utils.getCookie('email');
-
+  email = email.replace("%40", "@",);
+  console.log(email)
+  
 	if (!Utils.validateEmail(email)) {
-		alert('invalid cookies. Will redirect to home.');
+		alert(email + ' - invalid cookies. Will redirect to home.');
 		window.location.assign('/');
 		return 0;
 	}
