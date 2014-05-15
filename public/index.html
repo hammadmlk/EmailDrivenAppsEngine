@@ -1,8 +1,9 @@
 <!DOCTYPE HTML>
 <!--
-	Tessellate 1.0 by HTML5 UP
-	html5up.net | @n33co
-	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+	Play Mail!
+    
+    Page based on Tessellate 1.0 by HTML5 UP
+	
 -->
 <html>
 	<head>
@@ -28,12 +29,45 @@
 		<!-- Header -->
 			<section id="header" class="dark">
 				<header>
-					<h1>Welcome to Tessellate</h1>
-					<p>A free responsive site template by <a href="http://html5up.net/">HTML5 UP</a></p>
+					<h1>Play Mail!</h1>
+					<!--p>A free responsive site template by <a href="http://html5up.net/">HTML5 UP</a></p-->
 				</header>
-				<footer>
-					<a href="#first" class="button scrolly">Proceed to second phase</a>
+				<footer id="emailDiv" style="display:none">
+                    <input class="button" id="emailDivEmail" type="email" name="email" placeholder="Enter email to start">
+                    <a class="button" id="emailDivSubmit">Play</a>
+                    <!--a href="#first" class="button scrolly">Proceed to second phase</a-->
 				</footer>
+                <footer id = "loadingDiv" style="display:none">
+                    <div id = loadingDivMsg style="display:none">
+                        <span>Loading data from </span>
+                        <span id="loadingDivEmail">sample@gmail.com</span> 
+                        <span id="loadingDivProgress">(29)</span> 
+                    </div>
+                    <a class="button" id="loadingDivPlay" >Start Game</a>
+                </footer>
+                <footer id = "newUserDiv" style="display:none">
+                    <h1>We will need to read your email data before we can play.</h1>
+                    
+                    <form id="newUserDivForm">
+                        <input class="button alt" id="newUserDivEmail" type="email" placeholder="Enter email address">
+                        <br/>
+                        <select name="role" id = "role" class="button alt">
+                            <option value="" disabled selected>Your role at Cornell?</option>
+                            <option value="CU-UndergraduateDegree">Undergraduate Degree</option>
+                            <option value="CU-ProfessionalDegree">Professional Degree</option>
+                            <option value="CU-DoctoralDegree">Doctoral Degree</option>
+                            <option value="CU-AcademicStaff">Academic Staff</option>
+                            <option value="CU-Faculty">Faculty</option>
+                            <option value="Other">Other</option>
+                        </select>
+                        <br/><br/>
+                        <a class="button" id="newUserDivSubmit">Read my email data</a>
+                    </form>
+                </footer>
+                <footer id = "existUserDiv">
+                    <h1>Email data for <span>user@domain.com</span> ready to be played.</h1>
+                    <a class="button" id="">Start Game</a>
+                </footer>
 			</section>
 			
 		<!-- First -->
