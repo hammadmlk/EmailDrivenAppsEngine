@@ -17,7 +17,6 @@ db.once('open', function callback () {
 });
 
 app.get('/home', routes.home);
-app.get('/getStatus', routes.getStatus);
 //app.get('/query', routes.query);
 app.get('/stats.json', routes.stats);
 app.get('/login', routes.login);
