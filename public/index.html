@@ -16,6 +16,7 @@
 		<script src="js/jquery.min.js"></script>
 		<script src="js/skel.min.js"></script>
 		<script src="js/init.js"></script>
+        <script src="js/index.js"></script>
 		<noscript>
 			<link rel="stylesheet" href="css/skel-noscript.css" />
 			<link rel="stylesheet" href="css/style.css" />
@@ -32,24 +33,27 @@
 					<h1>Play Mail!</h1>
 					<!--p>A free responsive site template by <a href="http://html5up.net/">HTML5 UP</a></p-->
 				</header>
-				<footer id="emailDiv" style="display:none">
-                    <input class="button" id="emailDivEmail" type="email" name="email" placeholder="Enter email to start">
-                    <a class="button" id="emailDivSubmit">Play</a>
-                    <!--a href="#first" class="button scrolly">Proceed to second phase</a-->
-				</footer>
+				
                 <footer id = "loadingDiv" style="display:none">
-                    <div id = loadingDivMsg style="display:none">
+                    <div id = "loadingDivMsg">
                         <span>Loading data from </span>
                         <span id="loadingDivEmail">sample@gmail.com</span> 
-                        <span id="loadingDivProgress">(29)</span> 
+                        (<span id="loadingDivProgress">29</span>) 
                     </div>
-                    <a class="button" id="loadingDivPlay" >Start Game</a>
+                    <a class="button" id="loadingDivPlay" style="display:none" >Start Game</a>
                 </footer>
+                
+                <footer id="emailDiv" style="display:none">
+                    <input class="button" id="emailDivEmail" type="email" name="email" placeholder="Enter email to start">
+                    <a class="button" id="emailDivPlay">Play</a>
+                    <!--a href="#first" class="button scrolly">Proceed to second phase</a-->
+				</footer>
+                
                 <footer id = "newUserDiv" style="display:none">
                     <h1>We will need to read your email data before we can play.</h1>
                     
                     <form id="newUserDivForm">
-                        <input class="button alt" id="newUserDivEmail" type="email" placeholder="Enter email address">
+                        <input class="button alt" id="newUserDivEmail" type="email" name="email" placeholder="Enter email address">
                         <br/>
                         <select name="role" id = "role" class="button alt">
                             <option value="" disabled selected>Your role at Cornell?</option>
@@ -64,13 +68,14 @@
                         <a class="button" id="newUserDivSubmit">Read my email data</a>
                     </form>
                 </footer>
-                <footer id = "existUserDiv">
-                    <h1>Email data for <span>user@domain.com</span> ready to be played.</h1>
-                    <a class="button" id="">Start Game</a>
+                <footer id = "existUserDiv" style="display:none">
+                    <h1>Email data for <span id = "existUserDivEmail">user@domain.com</span> ready to be played.</h1>
+                    <a class="button" id="existUserDivStart">Start Game</a>
                 </footer>
 			</section>
 			
 		<!-- First -->
+        <!--
 			<section id="first" class="main">
 				<header>
 					<div class="container">
@@ -129,8 +134,9 @@
 					</div>
 				</div>
 			</section>
-
+        -->
 		<!-- Second -->
+        <!--
 			<section id="second" class="main">
 				<header>
 					<div class="container">
@@ -176,8 +182,9 @@
 					</div>
 				</div>
 			</section>
-			
+		-->
 		<!-- Third -->
+        <!--
 			<section id="third" class="main">
 				<header>
 					<div class="container">
@@ -234,7 +241,7 @@
 					</div>
 				</div>
 			</section>
-
+        -->
 		<!-- Basic Elements -->
 		<!--
 			<section class="main">
@@ -408,6 +415,7 @@
 		-->
 		
 		<!-- Fourth -->
+        <!--
 			<section id="fourth" class="main">
 				<header>
 					<div class="container">
@@ -438,8 +446,9 @@
 					</div>
 				</div>
 			</section>
-			
+		-->	
 		<!-- Footer -->
+        <!--
 			<section id="footer">
 				<ul class="icons">
 					<li><a href="#" class="fa fa-twitter solo"><span>Twitter</span></a></li>
@@ -455,6 +464,6 @@
 					</ul>
 				</div>
 			</section>
-
+        -->
 	</body>
 </html>
