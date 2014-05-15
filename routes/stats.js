@@ -27,6 +27,21 @@ module.exports = function (req, res) {
 		})
 		return;
 	}
+  
+  if (id == 'getUserLoadingStatus') {
+    var email = req.query.email;
+    
+    mongoDbApi.getUserLoadingStatus(email, function (status) {
+      console.log('status: ', status);
+      res.writeHead(200, {
+        "Content-Type" : "application/json"
+      });
+      res.write(JSON.stringify(status));
+      res.end();
+    })
+	}
+  
+  
 
 	/*
 	// print all emails in db
