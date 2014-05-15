@@ -16,8 +16,7 @@ var oauth2 = require('../oauth2/oauth2.js');
 var imap = require('../imap/imap.js');
 var mongoDbApi = require('../mongodb/api.js');
 var stats = require('./stats.js');
-//move url to external file
-var REDIRECT_URI = 'http://moodrhythm.com:5001/oauth2callback'; //oauth redirect uri
+var constants = require('../constants.js');
 
 /*
     @HomePage Route
@@ -69,22 +68,25 @@ exports.stats = function(req, res){
     When consent is granted, user is redirected to the url given
     in REDIRECT_URI.
 */
-exports.login = function(req, res){
-  var email= req.query.email || '';
-  var role= req.query.role || '';
-  var url;
-  if (email)
-    url = oauth2.genPermissionUrl(REDIRECT_URI, email.toLowerCase());
-  else
-    url = oauth2.genPermissionUrl(REDIRECT_URI);
-  
-    var cookieVal = {
-      email: email, 
-      role: role
-    };
-  
-  res.cookie('emailNrole', cookieVal, { signed: true, maxAge: 3600000})
-  res.redirect(url);
+exports.login = function (req, res) {
+	var email = req.query.email || '';
+	var role = req.query.role || '';
+	var url;
+	if (email)
+		url = oauth2.genPermissionUrl(constants.REDIRECT_URI, email.toLowerCase());
+	else
+		url = oauth2.genPermissionUrl(constants.REDIRECT_URI);
+
+	var cookieVal = {
+		email : email,
+		role : role
+	};
+
+	res.cookie('emailNrole', cookieVal, {
+		signed : true,
+		maxAge : 3600000
+	})
+	res.redirect(url);
 }
 
 /*
@@ -105,7 +107,7 @@ exports.oauth2callback = function(req, res){
         // getAuthTokens
         function(callback){
             console.log('1...');
-            oauth2.getAuthTokens(auth_code, REDIRECT_URI, callback);
+            oauth2.getAuthTokens(auth_code, constants.REDIRECT_URI, callback);
         },
         //handleTokens. Request user info
         function(tokens, callback){
@@ -184,26 +186,11 @@ exports.getEmails = function(req, res){
   	mongoDbApi.setUserLoadingStatus(email, 1);  
   });
   
-  res.send('Reading emails in background');
-}
-
-/*
-  Gets the loading status of a user.
-  TODO: move to stats.js 
-*/
-exports.getStatus = function(req, res){
-  var emailNToken = req.signedCookies.emailNToken;
-  var email = req.query.email || emailNToken.email ;
+  var cookieVal = 1;
+  res.cookie('loading', '1');
+  res.cookie('email', email)
   
-  mongoDbApi.getUserLoadingStatus(email, function (status) {
-  	console.log('status: ', status);
-    res.writeHead(200, {
-    	"Content-Type" : "application/json"
-    });
-    res.write(JSON.stringify(status));
-    res.end();
-    
-  })
+  res.redirect('/');
 }
 
 /*
