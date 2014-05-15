@@ -14,7 +14,7 @@
     <script data-main="SGmain" src="require.js"></script>
   </head>
   <body> 
-  <section id="infoPage" >
+  <section id="infoPage" style="display:none">
     <h1>Welcome to Khat-Khail</h1>
     <h3>A 80's style space invador game that runs on on actual email data.</h3>
     <p>
@@ -35,30 +35,6 @@
         <strong>Note:</strong>
         It might turn out that you have more enemies then bullets, just dodge and avoid them just like you would avoid unimportant emails.
     </p>
-    <p><strong>To start, please enter your email address and role at Cornell</strong></p>
-    <form id = "startGameForm">
-      E-mail: 
-        <input type="email" name="email" id="email">
-      <br/>
-      What do you do at Cornell?
-        <select name="role" id = "role">
-            <option value="CU-UndergraduateDegree">Undergraduate Degree</option>
-            <option value="CU-ProfessionalDegree">Professional Degree</option>
-            <option value="CU-DoctoralDegree">Doctoral Degree</option>
-            <option value="CU-AcademicStaff">Academic Staff</option>
-            <option value="CU-Faculty">Faculty</option>
-            <option value="Other">Other</option>
-        </select>
-      <br/>
-      <button type="button" id="submitbtn">Submit</button>
-    </form>
-    
-    <p style="display:none">Seems like we dont have data for <span>user@domain.com<span>. Lets fetch email data. <span>Click here</span> </p>
-    
-    <p style="display:none">Data from your email <span>user@domain.com<span> was last updated on <span>date</span>.</p>
-    <p style="display:none">Play Game</p>
-    <p style="display:none">Update</p>    
-    
   </section>
   
   

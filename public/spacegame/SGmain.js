@@ -1,52 +1,24 @@
-"use strict"
+//"use strict"
 
 require(["globals", "utils", "player", "controller", "view"],
 	function (GLOBAL, Utils, player, Controller, View) {
 	//Ran after all requires (and their dependencies have loaded)
 
-	///////
-  var startGame = function () {
-    var email = $('#email').val();
-    if (!Utils.validateEmail(email)){
-      alert('Invalid Email');
-      return;
-    }
-    var serial = $('#startGameForm').serialize();
-    console.log(serial);
-    
-    //var url = "/stats.json?id=getUser&email=" + email;
-    var url = "/stats.json?id=getUser&" + serial;
-		Utils.getJson(url, function (err, json) {
-			if (err) {
-				alert(err);
-			} else {
+	var email = Utils.getCookie('email');
 
-				if (json == '') {
-					alert('email not in db')
-					// click to fetch emails from db.
-				} else {
-					//email in db. Start game or update data.
-					window.start(email)
-				}
-			}
-		})
-    
-	};
+	if (!Utils.validateEmail(email)) {
+		alert('invalid cookies. Will redirect to home.');
+		window.location.assign('/');
+		return 0;
+	}
 
-	$("#submitbtn").click(startGame); 
-  
-  
+	start(email);
 
-	////////
-	window.onclick = function (email) {
-    //window.start(email);
-  }
-	window.start = function (email) {
+	function start(email) {
 		//return
-    email = email || 'hhm38@cornell.edu'
-		document.getElementById("infoPage").style.display = "none";
-    document.getElementById("gamePage").style.display = "";
-		window.onclick = 0;
+		//email = email || 'hhm38@cornell.edu'
+		//document.getElementById("infoPage").style.display = "none";
+		document.getElementById("gamePage").style.display = "";
 		Controller.getGameData(email, true, gameDataCB);
 		Controller.getGameData(email, false, gameDataCB);
 		Controller.getGameData(email, 'resTime', resTimeCB);
