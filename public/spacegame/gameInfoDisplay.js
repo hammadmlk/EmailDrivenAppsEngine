@@ -6,7 +6,6 @@ define(["globals", "./utils"], function (GLOBAL, Utils) {
   
   var firstSplashInfo = {counter: 1.5 * GLOBAL.FPS, message: "This Wave: " + Utils.UTCHourToLocalHour(GLOBAL.GAMEHOUR)};
   
-  
 	return {
     _splashInfo: firstSplashInfo,//{counter: 0, message: ""},
 		draw : function () {
@@ -40,8 +39,6 @@ define(["globals", "./utils"], function (GLOBAL, Utils) {
       if(this._splashInfo.counter>0){
         this._splashInfo.counter--;
       }
-      if(Math.random()<0.05)
-        console.log(this._splashInfo)
     },
     hourSplash: function() {
       var duration= 1.5; //in seconds
