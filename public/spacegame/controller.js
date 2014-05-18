@@ -67,7 +67,7 @@ define(["globals", "utils", "enemy", "./backgroundLine", "./gameInfoDisplay"], f
       //handle collisions
 			this._handleCollisions(GLOBAL, player, this._collides);
 
-			//todo:remove?
+			//todo:break the function into properly isolated functions?
 			var nextEnemy = this._shouldCreateEnemy();
 			if (nextEnemy) {
 				GLOBAL.HOURENEMYNUMBER++;
@@ -99,7 +99,7 @@ define(["globals", "utils", "enemy", "./backgroundLine", "./gameInfoDisplay"], f
 					}));
 			}
 		},
-		_shouldCreateEnemy : function () {
+		_shouldCreateEnemy : function () { //TODO: should not be doing so many things. Break down 
 			var hour = GLOBAL.GAMEHOUR;
 			var inemaildata = GLOBAL.INCOMINGEMAILDATA;
 			var totalhourloops = GLOBAL.FPS * GLOBAL.HOURLENGTH;
@@ -109,17 +109,16 @@ define(["globals", "utils", "enemy", "./backgroundLine", "./gameInfoDisplay"], f
 			if (GLOBAL.HOURITR > totalhourloops) {
 				//console.log(hour, 'hour')
 				//console.log(inemaildata[hour], 'hour len')
-				if (GLOBAL.HOURITR > totalhourloops + 2 * GLOBAL.FPS
+				if (GLOBAL.HOURITR > totalhourloops + (2 * GLOBAL.FPS)
 					&& GLOBAL.ENEMIES.length === 0
 				) {
 					GLOBAL.HOURITR = 0;
 					GLOBAL.HOURENEMYNUMBER = 0;
 					GLOBAL.GAMEHOUR++;
           GameInfoDisplay.hourSplash();
-
 				}
 				if (GLOBAL.GAMEHOUR > 23) {
-					alert('end of time. Refresh page to play again');
+					alert('Game Over. Refresh page to play again');
 				}
 				return 0
 			}
