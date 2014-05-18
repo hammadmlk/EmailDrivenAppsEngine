@@ -1,10 +1,13 @@
-define(["globals", "utils", "enemy", "./backgroundLine"], function (GLOBAL, Utils, Enemy, BackgroundLine) {
+define(["globals", "utils", "enemy", "./backgroundLine", "./gameInfoDisplay"], function (GLOBAL, Utils, Enemy, BackgroundLine, GameInfoDisplay) {
 	return {
 		update : function (player) {
+    
+      //shoot
 			if (GLOBAL.KEYDOWN.isSpace()) {
 				player.shoot();
 			}
-
+      
+      //left
 			if (GLOBAL.KEYDOWN.left) {
 				//player.x -= 10;
 
@@ -14,7 +17,8 @@ define(["globals", "utils", "enemy", "./backgroundLine"], function (GLOBAL, Util
 
 				player.x -= speed;
 			}
-
+      
+      //right
 			if (GLOBAL.KEYDOWN.right) {
 				var speed = GLOBAL.RESTIME;
 				speed = Math.min(Math.max(3, (30000 / speed)), 20);
@@ -22,43 +26,48 @@ define(["globals", "utils", "enemy", "./backgroundLine"], function (GLOBAL, Util
 
 				player.x += speed;
 			}
-
+      
+      //keep player inside screen
 			player.x = player.x.clamp(0, GLOBAL.CANVAS_WIDTH - player.width);
       
-      
+      //add bg lines
       if(Math.random()<0.02){
         while(GLOBAL.BACKGROUNDLINES.length<500){
           GLOBAL.BACKGROUNDLINES.push(BackgroundLine());
         }
       }
       
+      //update bg lines
       GLOBAL.BACKGROUNDLINES.forEach(function (line) {
 				line.update();
 			});
-
 			GLOBAL.BACKGROUNDLINES = GLOBAL.BACKGROUNDLINES.filter(function (line) {
 					return line.active;
       });
       
+      //update bullets
 			GLOBAL.PLAYERBULLETS.forEach(function (bullet) {
 				bullet.update();
 			});
-
 			GLOBAL.PLAYERBULLETS = GLOBAL.PLAYERBULLETS.filter(function (bullet) {
 					return bullet.active;
       });
-
+      
+      //update enemies
 			GLOBAL.ENEMIES.forEach(function (enemy) {
 				enemy.update();
 			});
-
 			GLOBAL.ENEMIES = GLOBAL.ENEMIES.filter(function (enemy) {
 					return enemy.active;
 				});
-
+      
+      //update GameInfoDisplay
+      GameInfoDisplay.update();
+      
+      //handle collisions
 			this._handleCollisions(GLOBAL, player, this._collides);
 
-			//todo:remove
+			//todo:remove?
 			var nextEnemy = this._shouldCreateEnemy();
 			if (nextEnemy) {
 				GLOBAL.HOURENEMYNUMBER++;
@@ -106,6 +115,7 @@ define(["globals", "utils", "enemy", "./backgroundLine"], function (GLOBAL, Util
 					GLOBAL.HOURITR = 0;
 					GLOBAL.HOURENEMYNUMBER = 0;
 					GLOBAL.GAMEHOUR++;
+          GameInfoDisplay.hourSplash();
 
 				}
 				if (GLOBAL.GAMEHOUR > 23) {

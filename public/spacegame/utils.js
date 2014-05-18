@@ -3,8 +3,22 @@ define(function () {
 		func1 : function () {
 			alert('f1')
 		},
-		func2 : function () {
-			alert('f2')
+		UTCHourToLocalHour : function (UTChour) {
+			var d = new Date();
+      d.setUTCHours(UTChour);
+      
+      var localHour = d.getHours(); //converts to local timezone;
+      
+      var str = "";
+      if(localHour<12){
+        str = localHour + ":00 AM";
+      }else if (localHour == 12 ){
+        str = localHour + " Noon";
+      }
+      else{
+        str = (localHour-12) + ":00 PM";
+      }      
+      return str;
 		},
 		getJson : function (url, callback) {
 			//open url with GET. Convert response to JSON n return it.

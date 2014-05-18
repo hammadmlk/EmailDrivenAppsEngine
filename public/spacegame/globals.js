@@ -27,7 +27,7 @@ define(function () {
     INCOMINGEMAILDATA:[],
     RESTIME:0, //avg response time
     GAMEHOUR:0,
-    HOURLENGTH:15, //how long (in seconds) is one hour in game time
+    HOURLENGTH:20, //how long (in seconds) is one hour in game time
     HOURITR:0, //hour iteration number
     HOURENEMYNUMBER:0
 	}
