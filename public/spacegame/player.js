@@ -3,15 +3,26 @@
 //use:
 define(["globals", "./bullet"], function (GLOBAL, Bullet) {
 	"use strict"
+  
+  var width = 70;
+  var height= 63;
+  
+  
 	return {
 		color : "#00A",
-		x : GLOBAL.CANVAS_WIDTH / 2 - 10,
-		y : GLOBAL.CANVAS_HEIGHT - 30,
-		width : 32,
-		height : 30,
-		drawx : function () {
+		width : width,
+		height : height,
+    x : GLOBAL.CANVAS_WIDTH / 2 - width/2,
+		y : GLOBAL.CANVAS_HEIGHT - height,
+		sprite : GLOBAL.SPRITE("player_ship"), //todo:
+		draw : function () {
+			this.sprite.draw(GLOBAL.CANVAS, this.x, this.y);
+		},
+    drawx : function () {
+      var temp = GLOBAL.CANVAS.fillStyle;
 			GLOBAL.CANVAS.fillStyle = this.color;
 			GLOBAL.CANVAS.fillRect(this.x, this.y, this.width, this.height);
+      GLOBAL.CANVAS.fillStyle = temp;
 		},
 		shoot : function () {
 			if (GLOBAL.OUTGOINGEMAILDATA[GLOBAL.GAMEHOUR].length > 0) { // bullet available
@@ -38,10 +49,6 @@ define(["globals", "./bullet"], function (GLOBAL, Bullet) {
 		explode : function () {
 			this.active = false;
 			// Extra Credit: Add an explosion graphic and then end the game
-		},
-		sprite : GLOBAL.SPRITE("player"), //todo:
-		draw : function () {
-			this.sprite.draw(GLOBAL.CANVAS, this.x, this.y);
 		}
 	};
 });

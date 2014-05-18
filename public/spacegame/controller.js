@@ -62,19 +62,16 @@ define(["globals", "utils", "enemy"], function (GLOBAL, Utils, Enemy) {
 					color = 'green';
 				} else if (from.search(/@outlook./i) != -1) {
 					color = 'green';
-				} else if (from.search(/@mit./i) != -1) {
-					color = 'pink';
 				} else {
-					color = 'white';
+					color = 'grey';
 				}
 
-				var size = Math.min(10, (nextEnemy.numOfTo + nextEnemy.numOfCc));
-				size = (size / 10) * 1.5 + 1;
+				var scale = Math.min(10, (nextEnemy.numOfTo + nextEnemy.numOfCc));
+				scale = (scale / 10) * 1.5 + 1;
 
 				GLOBAL.ENEMIES.push(Enemy({
-						a : '',
 						color : color,
-						size : size
+						scale : scale
 					}));
 			}
 		},

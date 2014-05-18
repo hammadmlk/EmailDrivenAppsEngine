@@ -9,8 +9,8 @@ define(["globals"], function (GLOBAL) {
 		I.xVelocity = 0;
 		I.yVelocity = -I.speed;
 		I.width = 3;
-		I.height = 3;
-		I.color = "#000";
+		I.height = 15;
+		I.color = "#990";
 
 		I.inBounds = function () {
 			return I.x >= 0 && I.x <= GLOBAL.CANVAS_WIDTH &&
@@ -18,8 +18,10 @@ define(["globals"], function (GLOBAL) {
 		};
 
 		I.draw = function () {
+      var temp = GLOBAL.CANVAS.fillStyle;
 			GLOBAL.CANVAS.fillStyle = this.color;
 			GLOBAL.CANVAS.fillRect(this.x, this.y, this.width, this.height);
+      GLOBAL.CANVAS.fillStyle = temp;
 		};
 
 		I.update = function () {

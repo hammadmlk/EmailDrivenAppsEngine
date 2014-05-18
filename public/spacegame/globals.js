@@ -3,7 +3,7 @@ define(function () {
 	"use strict"
 	//Do setup work here
 
-	var canvas_width = (window.innerWidth).clamp(250, 700);
+	var canvas_width = (window.innerWidth).clamp(480, 1200);
 	//todo: clamp prototype should run first.
 	var canvas_height = window.innerHeight-5;
 	var canvasElement = $("<canvas width='" + canvas_width +
