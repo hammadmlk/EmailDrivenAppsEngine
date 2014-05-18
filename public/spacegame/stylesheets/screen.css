@@ -4,6 +4,8 @@ body {
   border:0;
   margin: 0;
   background-color: gainsboro;
+  background-color: #222;
+  background-image: url('../images/background.png');
   xcolor:darkcyan;
 }
 
@@ -31,4 +33,5 @@ section {
 section#gamePage {
   padding:0%;
   padding-left:0%;
+  text-align:center;
 }
