@@ -38,7 +38,9 @@ define(["globals"], function (GLOBAL) {
 
 		I.draw = function () {
       //this.sprite.fill(GLOBAL.CANVAS, this.x, this.y, this.width, this.height, '',this.color)
-			this.sprite.draw(GLOBAL.CANVAS, this.x, this.y);
+			//this.sprite.fill(GLOBAL.CANVAS, this.x, this.y, this.width, this.height, '');
+      //this.sprite.draw(GLOBAL.CANVAS, this.x, this.y);
+      this.sprite.draw(GLOBAL.CANVAS, this.x, this.y, this.width, this.height);
 		};
 
 		I.update = function () {

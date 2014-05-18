@@ -17,7 +17,7 @@
     height = height || image.height;
     
     return {
-      draw: function(canvas, x, y) {
+      draw: function(canvas, x, y, newWidth, newHeight) {
         canvas.drawImage(
           image,
           sourceX,
@@ -26,38 +26,28 @@
           height,
           x,
           y,
-          width,
-          height
+          newWidth || width,
+          newHeight || height
         );
       },
       
       fill: function(canvas, x, y, width, height, repeat, color) {
+        
+        var temp = canvas.fillStyle;
+        
         if (typeof color === 'undefined'){
           repeat = repeat || "repeat";
           var pattern = canvas.createPattern(image, repeat);
-          canvas.fillColor(pattern);
-          //canvas.fillRect(x, y, width, height);
-          
-          canvas.beginPath();
-          canvas.arc(x+width/2,y+height/2,width/2,0,2*Math.PI);
-          canvas.fill();
-          canvas.strokeStyle = 'grey';
-          canvas.stroke();
-          
-          
-          return
+          canvas.fillStyle = pattern;
+        }else{
+          canvas.fillStyle = color;
         }
-        var temp = canvas.fillStyle;
-        canvas.fillStyle = color;
-        //canvas.fillRect(x, y, width, height);
         
         canvas.beginPath();
         canvas.arc(x+width/2,y+height/2,width/2,0,2*Math.PI);
         canvas.fill();
         canvas.strokeStyle = 'grey';
-        canvas.stroke();
-        
-        
+        canvas.stroke(); 
         canvas.fillStyle = temp;
       },
       
