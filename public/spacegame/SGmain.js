@@ -9,7 +9,7 @@ require(["globals", "utils", "player", "controller", "view"],
   console.log(email)
   
 	if (!Utils.validateEmail(email)) {
-		alert(email + ' - invalid cookies. Will redirect to home.');
+		//alert(email + ' - invalid cookies. Will redirect to home.');
 		window.location.assign('/');
 		return 0;
 	}
