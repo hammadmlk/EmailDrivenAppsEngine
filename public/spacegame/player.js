@@ -54,7 +54,8 @@ define(["globals", "./bullet"], function (GLOBAL, Bullet) {
         
 				var bulletPosition = this.midpoint();
 				GLOBAL.PLAYERBULLETS.push(Bullet({
-						speed : 10,
+						angle: this.angle,
+            speed : 10,
 						x : bulletPosition.x,
 						y : bulletPosition.y
 					}));

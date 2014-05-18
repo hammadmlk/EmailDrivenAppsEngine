@@ -29,6 +29,7 @@ define(function () {
     GAMEHOUR:0,
     HOURLENGTH:20, //how long (in seconds) is one hour in game time
     HOURITR:0, //hour iteration number
-    HOURENEMYNUMBER:0
+    HOURENEMYNUMBER:0,
+    GAMEMODE:'alldirection' //'leftrightonly', 'alldirection'
 	}
 });

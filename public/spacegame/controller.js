@@ -6,33 +6,46 @@ define(["globals", "utils", "enemy", "./backgroundLine", "./gameInfoDisplay"], f
 			if (GLOBAL.KEYDOWN.isSpace()) {
 				player.shoot();
 			}
-      
-      //left
-			if (GLOBAL.KEYDOWN.left) {
-        player.left(0.075);
-			}
-      
-      //right
-			if (GLOBAL.KEYDOWN.right) {
-        player.right(0.075);
-			}
-      
-      //up
-			if (GLOBAL.KEYDOWN.up) {
-				var speed = GLOBAL.RESTIME;
-        speed = Math.min(Math.max(3, (30000 / speed)), 20);
-        player.up(speed);
-			}
-      
-      //down
-			if (GLOBAL.KEYDOWN.down) {
-				var speed = GLOBAL.RESTIME;
-				speed = Math.min(Math.max(3, (30000 / speed)), 20);				
-        player.down(speed);
-			}
+      if(GLOBAL.GAMEMODE=='leftrightonly'){
+        //left
+        if (GLOBAL.KEYDOWN.left) {
+          var speed = GLOBAL.RESTIME;
+          speed = Math.min(Math.max(3, (30000 / speed)), 20);
+          player.x-=speed;
+        }      
+        //right
+        if (GLOBAL.KEYDOWN.right) {
+          var speed = GLOBAL.RESTIME;
+          speed = Math.min(Math.max(3, (30000 / speed)), 20);
+          player.x+=speed;
+        }
+      }
+      else{
+        //left
+        if (GLOBAL.KEYDOWN.left) {
+          player.left(0.075);
+        }      
+        //right
+        if (GLOBAL.KEYDOWN.right) {
+          player.right(0.075);
+        }
+        //up
+        if (GLOBAL.KEYDOWN.up) {
+          var speed = GLOBAL.RESTIME;
+          speed = Math.min(Math.max(3, (30000 / speed)), 20);
+          player.up(speed);
+        }
+        //down
+        if (GLOBAL.KEYDOWN.down) {
+          var speed = GLOBAL.RESTIME;
+          speed = Math.min(Math.max(3, (30000 / speed)), 20);				
+          player.down(speed);
+        }
+      }
       
       //keep player inside screen
 			player.x = player.x.clamp(0, GLOBAL.CANVAS_WIDTH - player.width);
+      player.y = player.y.clamp(0, GLOBAL.CANVAS_HEIGHT - player.height);
       
       //add bg lines
       if(Math.random()<0.02){
