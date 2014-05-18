@@ -11,6 +11,9 @@ define(["globals", "enemy"], function (GLOBAL, Enemy) {
 			GLOBAL.ENEMIES.forEach(function (enemy) {
 				enemy.draw();
 			});
+      GLOBAL.BACKGROUNDLINES.forEach(function (line) {
+				line.draw();
+			})
       
       var edttime = GLOBAL.GAMEHOUR-4
       if(edttime<0){edttime = 24+edttime}

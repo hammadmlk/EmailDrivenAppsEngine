@@ -1,4 +1,4 @@
-define(["globals", "utils", "enemy"], function (GLOBAL, Utils, Enemy) {
+define(["globals", "utils", "enemy", "./backgroundLine"], function (GLOBAL, Utils, Enemy, BackgroundLine) {
 	return {
 		update : function (player) {
 			if (GLOBAL.KEYDOWN.isSpace()) {
@@ -24,14 +24,29 @@ define(["globals", "utils", "enemy"], function (GLOBAL, Utils, Enemy) {
 			}
 
 			player.x = player.x.clamp(0, GLOBAL.CANVAS_WIDTH - player.width);
+      
+      
+      if(Math.random()<0.02){
+        while(GLOBAL.BACKGROUNDLINES.length<500){
+          GLOBAL.BACKGROUNDLINES.push(BackgroundLine());
+        }
+      }
+      
+      GLOBAL.BACKGROUNDLINES.forEach(function (line) {
+				line.update();
+			});
 
+			GLOBAL.BACKGROUNDLINES = GLOBAL.BACKGROUNDLINES.filter(function (line) {
+					return line.active;
+      });
+      
 			GLOBAL.PLAYERBULLETS.forEach(function (bullet) {
 				bullet.update();
 			});
 
 			GLOBAL.PLAYERBULLETS = GLOBAL.PLAYERBULLETS.filter(function (bullet) {
 					return bullet.active;
-				});
+      });
 
 			GLOBAL.ENEMIES.forEach(function (enemy) {
 				enemy.update();

@@ -18,6 +18,7 @@ define(function () {
 		CANVAS : canvas,
 		SOUND : Sound, //TODO: this should be imported
 		SPRITE : Sprite,
+    BACKGROUNDLINES : [],
 		PLAYERBULLETS : [],
     ENEMIES: [],
     KEYDOWN: keydown,
