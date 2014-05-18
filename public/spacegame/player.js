@@ -14,6 +14,22 @@ define(["globals", "./bullet"], function (GLOBAL, Bullet) {
 		height : height,
     x : GLOBAL.CANVAS_WIDTH / 2 - width/2,
 		y : GLOBAL.CANVAS_HEIGHT - height,
+    angle : 0,
+    
+    up : function(){
+      
+    },
+    down : function(){
+      
+    },
+    left : function(speed){
+      this.x -= speed;
+    },
+    right : function(speed){
+      this.x += speed;
+    },
+    
+    
 		sprite : GLOBAL.SPRITE("player_ship"), //todo:
 		draw : function () {
 			this.sprite.draw(GLOBAL.CANVAS, this.x, this.y);
