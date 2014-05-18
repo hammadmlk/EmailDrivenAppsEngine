@@ -17,18 +17,38 @@
     height = height || image.height;
     
     return {
-      draw: function(canvas, x, y, newWidth, newHeight) {
+      draw: function(canvas, x, y, newWidth, newHeight, angle) {
+        
+        angle = angle || 0;
+        
+        if(angle){
+          canvas.save();
+          var rotationX = x+newWidth/2;
+          var rotationY = y+newHeight/2;
+          canvas.translate(rotationX, rotationY); //set new origin
+          canvas.rotate(angle); //rotate canvas
+          canvas.translate(-rotationX, -rotationY); //set new origin
+        }
+        
         canvas.drawImage(
-          image,
-          sourceX,
-          sourceY,
-          width,
-          height,
-          x,
-          y,
-          newWidth || width,
-          newHeight || height
-        );
+                  image,
+                  sourceX,
+                  sourceY,
+                  width,
+                  height,
+                  x,
+                  y,
+                  newWidth || width,
+                  newHeight || height
+          );
+        
+        if(angle){
+          canvas.rotate(-angle);
+          canvas.restore();
+          return
+        }
+        
+        
       },
       
       fill: function(canvas, x, y, width, height, repeat, color) {

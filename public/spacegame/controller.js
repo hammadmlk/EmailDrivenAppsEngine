@@ -9,16 +9,26 @@ define(["globals", "utils", "enemy", "./backgroundLine", "./gameInfoDisplay"], f
       
       //left
 			if (GLOBAL.KEYDOWN.left) {
-				var speed = GLOBAL.RESTIME;
-        speed = Math.min(Math.max(3, (30000 / speed)), 20);
-        player.left(speed);
+        player.left(0.075);
 			}
       
       //right
 			if (GLOBAL.KEYDOWN.right) {
+        player.right(0.075);
+			}
+      
+      //up
+			if (GLOBAL.KEYDOWN.up) {
+				var speed = GLOBAL.RESTIME;
+        speed = Math.min(Math.max(3, (30000 / speed)), 20);
+        player.up(speed);
+			}
+      
+      //down
+			if (GLOBAL.KEYDOWN.down) {
 				var speed = GLOBAL.RESTIME;
 				speed = Math.min(Math.max(3, (30000 / speed)), 20);				
-        player.right(speed);
+        player.down(speed);
 			}
       
       //keep player inside screen

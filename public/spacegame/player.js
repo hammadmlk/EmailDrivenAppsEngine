@@ -16,23 +16,29 @@ define(["globals", "./bullet"], function (GLOBAL, Bullet) {
 		y : GLOBAL.CANVAS_HEIGHT - height,
     angle : 0,
     
-    up : function(){
-      
+    up : function(speed){
+      this.x += Math.sin(this.angle)*speed;
+      this.y -= Math.cos(this.angle)*speed;
+      console.log('up', this.x, this.y, this.angle);
     },
-    down : function(){
-      
+    down : function(speed){
+      this.x -= Math.sin(this.angle)*speed;
+      this.y += Math.cos(this.angle)*speed;
+      console.log('down', this.x, this.y, this.angle);
     },
-    left : function(speed){
-      this.x -= speed;
+    left : function(change){
+      this.angle -= change;
+      console.log('left', this.x, this.y, this.angle);
     },
-    right : function(speed){
-      this.x += speed;
+    right : function(change){
+      this.angle += change;
+      console.log('right', this.x, this.y, this.angle);
     },
     
     
 		sprite : GLOBAL.SPRITE("player_ship"), //todo:
 		draw : function () {
-			this.sprite.draw(GLOBAL.CANVAS, this.x, this.y);
+			this.sprite.draw(GLOBAL.CANVAS, this.x, this.y, this.width, this.height, this.angle);
 		},
     drawx : function () {
       var temp = GLOBAL.CANVAS.fillStyle;
