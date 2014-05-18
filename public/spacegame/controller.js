@@ -110,7 +110,7 @@ define(["globals", "utils", "enemy", "./backgroundLine", "./gameInfoDisplay"], f
 				//console.log(hour, 'hour')
 				//console.log(inemaildata[hour], 'hour len')
 				if (GLOBAL.HOURITR > totalhourloops + 2 * GLOBAL.FPS
-					/*&& GLOBAL.ENEMIES.length === 0*/
+					&& GLOBAL.ENEMIES.length === 0
 				) {
 					GLOBAL.HOURITR = 0;
 					GLOBAL.HOURENEMYNUMBER = 0;
