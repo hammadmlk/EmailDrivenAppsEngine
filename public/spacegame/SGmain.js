@@ -34,7 +34,8 @@ require(["globals", "utils", "player", "controller", "view"],
 				Controller.update(p);
 				View.draw(p);
 			}, 1000 / g.FPS);
-
+      g.SOUND.play("backgroundMusic", 0, true);
+      
 		}
 
 		//gamedata callback

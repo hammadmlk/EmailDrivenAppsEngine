@@ -23,12 +23,21 @@ var Sound = (function($) {
   }
 
   return $.extend(Sound, {
-    play: function(name, maxChannels) {
+    play: function(name, maxChannels, loop) {
+      
       // Note: Too many channels crash browsers
       maxChannels = maxChannels || 4;
 
       if(!sounds[name]) {
         sounds[name] = [loadSoundChannel(name)];
+        
+        if(loop){
+          sounds[name][0].addEventListener('ended', function() {
+            console.log('ended');
+            this.currentTime = 0;
+            this.play();
+          }, false);
+        }
       }
 
       var freeChannels = $.grep(sounds[name], function(sound) {
