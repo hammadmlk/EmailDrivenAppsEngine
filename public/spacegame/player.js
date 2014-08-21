@@ -19,20 +19,20 @@ define(["globals", "./bullet"], function (GLOBAL, Bullet) {
     up : function(speed){
       this.x += Math.sin(this.angle)*speed;
       this.y -= Math.cos(this.angle)*speed;
-      console.log('up', this.x, this.y, this.angle);
+      //console.log('up', this.x, this.y, this.angle);
     },
     down : function(speed){
       this.x -= Math.sin(this.angle)*speed;
       this.y += Math.cos(this.angle)*speed;
-      console.log('down', this.x, this.y, this.angle);
+      //console.log('down', this.x, this.y, this.angle);
     },
     left : function(change){
       this.angle -= change;
-      console.log('left', this.x, this.y, this.angle);
+      //console.log('left', this.x, this.y, this.angle);
     },
     right : function(change){
       this.angle += change;
-      console.log('right', this.x, this.y, this.angle);
+      //console.log('right', this.x, this.y, this.angle);
     },
     
     
