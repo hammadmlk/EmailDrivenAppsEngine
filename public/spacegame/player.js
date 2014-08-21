@@ -20,6 +20,8 @@ define(["globals", "./bullet"], function (GLOBAL, Bullet) {
       this.x += Math.sin(this.angle)*speed;
       this.y -= Math.cos(this.angle)*speed;
       //console.log('up', this.x, this.y, this.angle);
+      GLOBAL.SOUND.play("thrust");
+
     },
     down : function(speed){
       this.x -= Math.sin(this.angle)*speed;
